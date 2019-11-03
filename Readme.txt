@@ -1,9 +1,9 @@
-GKD¼ÆÏµ²Ù×÷ÏµÍ³ÊµÑé¿ÎÓÃ½Å±¾
+GKDè®¡ç³»æ“ä½œç³»ç»Ÿå®éªŒè¯¾ç”¨è„šæœ¬
 
-do.sh:½Å±¾±¾Ìå¡£Ä¿Ç°½öÖ§³Ö-qºÍ-gºÍ-hÈıÖÖÊäÈëÑ¡Ïî¡£
-gdb_settings:Ê¹ÓÃgdbµ÷ÊÔÊ±µÄÔ¤ÊäÈëÉèÖÃ¡£Ä¬ÈÏµ¼Èësymbols£¬ÉèÖÃ¼Ü¹¹¼°Ô¶³Ì¶Ë¿Ú¡£¿ÉÒÔ¸ù¾İĞèÒª×ÔĞĞÌí¼Ó£¨ÀıÈçÃ¿´Îµ÷ÊÔ¶¼ĞèÒªÔÚinit_pcbº¯Êı´¦´ò¶Ïµã£¬¾ÍÔÚ±¾ÎÄ¼şÖĞ¼ÓÈëÒ»ĞĞ"b init_pcb"£©¡£
+do.sh:è„šæœ¬æœ¬ä½“ã€‚ç›®å‰ä»…æ”¯æŒ-qå’Œ-gå’Œ-hä¸‰ç§è¾“å…¥é€‰é¡¹ã€‚
+gdb_settings:ä½¿ç”¨gdbè°ƒè¯•æ—¶çš„é¢„è¾“å…¥è®¾ç½®ã€‚é»˜è®¤å¯¼å…¥symbolsï¼Œè®¾ç½®æ¶æ„åŠè¿œç¨‹ç«¯å£ã€‚å¯ä»¥æ ¹æ®éœ€è¦è‡ªè¡Œæ·»åŠ ï¼ˆä¾‹å¦‚æ¯æ¬¡è°ƒè¯•éƒ½éœ€è¦åœ¨init_pcbå‡½æ•°å¤„æ‰“æ–­ç‚¹ï¼Œå°±åœ¨æœ¬æ–‡ä»¶ä¸­åŠ å…¥ä¸€è¡Œ"b init_pcb"ï¼‰ã€‚
 
-ÔËĞĞ·½·¨£º½«gdb_settingsÎÄ¼şºÍdo.shÎÄ¼ş¿½±´µ½start_codeÄ¿Â¼ÏÂ£¬ÊäÈë"bash do.sh"¼´¿É¿´µ½Ê¹ÓÃËµÃ÷¡£¸½ÈçÏÂ£º
+è¿è¡Œæ–¹æ³•ï¼šå°†gdb_settingsæ–‡ä»¶å’Œdo.shæ–‡ä»¶æ‹·è´åˆ°start_codeç›®å½•ä¸‹ï¼Œè¾“å…¥"bash do.sh"å³å¯çœ‹åˆ°ä½¿ç”¨è¯´æ˜ã€‚é™„å¦‚ä¸‹ï¼š
 
 This is a script for UCAS's OS projects. USAGE:
 
@@ -12,11 +12,11 @@ This is a script for UCAS's OS projects. USAGE:
 Options:
 
     -q:     Test the image in QEMU of Loongson.
-            (Make sure there has been a visual \"disk\" file under \"~/QEMULoongson/\".)
+            (Make sure there has been a visual "disk" file under "~/QEMULoongson/".)
     -g:     Connect GDB with symbol-file under arch mips.
             (The fucking annoying and useless version info will not be print.)
     -b:     Load the image to the BOARD and run.(DEBUGGING)
             (NOT RECOMMANDED. Connections with both SDcard and BOARD are required.)
     -h:     Print this message.
 
-Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom check his mailbox.XD
+Report bugs to "<cacaogattoxy@gmail.com>", although the author seldom check his mailbox.XD
