@@ -19,4 +19,4 @@ Options:
             (NOT RECOMMANDED. Connections with both SDcard and BOARD are required.)
     -h:     Print this message.
 
-Report bugs to "<cacaogattoxy@gmail.com>", although the author seldom check his mailbox.XD
+Report bugs to "<cacaogattoxy@gmail.com>", although the author seldom checks his mailbox.XD
