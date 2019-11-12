@@ -2,11 +2,11 @@
 set -e
 
 password="123456"
+qemu_path=~/QEMULoongson
 setting="
 set arch mips
 target remote localhost:50010
 "
-qemu_path=~/QEMULoongson
 usage="
 This is a script for UCAS's OS projects. USAGE:
 
@@ -14,13 +14,13 @@ This is a script for UCAS's OS projects. USAGE:
 
 Options:
 
-    -q:     Test the image in QEMU of Loongson.
-            (Make sure there has been a visual \"disk\" file under \"~/QEMULoongson/\".)
+    -q:     Compile the image and test in QEMU of Loongson.
+            (Make sure there has been a visual \"disk\" file under your qemu_path.)
     -g:     Connect GDB with symbol-file under arch mips.
             (The fucking annoying and useless version info will not be printed.)
     -c:     Create \"pass.sh\" under \"~/\".
-            (Bash it directly. No need inputting \"sudo mount...\" after reconnection.)
-    -b:     Load the image to the SDcard.
+            (Bash it with the same usage. No need inputting \"sudo mount...\" after reconnection.)
+    -f:     Make clean, make all and make floppy.
     -h:     Print this message.
 
 Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom checks his mailbox.XD
@@ -41,27 +41,39 @@ if [ ! $# == 1 ] ; then
     echo -e "$usage"
     exit
 fi
-if [ "$1" = "-q" ] ; then
-    make clean
-    make all
-    cp image "$qemu_path"
-    cd "$qemu_path"
-    dd if=image of=disk conv=notrunc
-    sh run_pmon.sh
-elif [ "$1" = "-b" ] ; then
-    make clean
-    make all
-    make floppy
-elif [ "$1" = "-g" ] ; then
-    echo -e "$setting" > gdb_settings
-    gdb-multiarch -x gdb_settings --symbols=main --quiet
-    rm -f gdb_settings
-elif [ "$1" = "-c" ] ; then
-    echo "$password" | sudo -S echo -e "$remote" > ~/pass.sh
-    echo
-elif [ "$1" = "-h" ] ; then
-    echo -e "$usage"
-else
-    echo -e "Unrecognized option '$1'."
-    echo -e "$guide"
-fi
+while getopts "qgcfh" opt; do
+    case $opt in
+        q)
+          make clean
+          make all
+          echo
+          cp image "$qemu_path"
+          cd "$qemu_path"
+          dd if=image of=disk conv=notrunc
+          sh run_pmon.sh
+          ;;
+        g)
+          echo -e "$setting" > gdb_settings
+          gdb-multiarch -x gdb_settings --symbols=main --quiet
+          rm -f gdb_settings
+          ;;
+        c)
+          echo "$password" | sudo -S echo -e "$remote" > ~/pass.sh
+          echo
+          echo "[NOTE] If it is the first time you use this script, make sure the password and qemu_path has been set correctly."
+          ;;
+        f)
+          make clean
+          make all
+          echo
+          make floppy
+          ;;
+        h)
+          echo -e "$usage"
+          ;;
+        \?)
+          echo -e "Unrecognized option '$1'."
+          echo -e "$guide"
+          ;;
+    esac
+done
