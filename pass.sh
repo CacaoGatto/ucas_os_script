@@ -4,7 +4,7 @@ set -e
 usage="
 This is a script for UCAS's OS projects. USAGE:
 
-    bash do.sh [option]
+    bash pass.sh [option]
 
 Options:
 
@@ -17,7 +17,7 @@ Options:
 
 Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom check mails.XD
 "
-guide="Use \`bash do.sh -h' for a complete list of options."
+guide="Use \`bash pass.sh -h' for a complete list of options."
 qemu_path=~/QEMULoongson
 
 if [ ! $# == 1 ] ; then
