@@ -1,4 +1,9 @@
-GKD计系操作系统实验课用脚本
+GKD计系操作系统实验课用脚本（MIPS框架）
+
+2019.11.12更新：
+①增加了编译错误时终止脚本运行的设置，防止后续操作全部木大
+②不需要额外下载gdb配置文件，脚本会自动生成和清除
+③修改脚本名为pass.sh，让你的每次运行都能获得祈祷一般的玄学加成
 
 do.sh:脚本本体。目前仅支持-q和-g和-h三种输入选项。
 gdb_settings:使用gdb调试时的预输入设置。默认导入symbols，设置架构及远程端口。可以根据需要自行添加（例如每次调试都需要在init_pcb函数处打断点，就在本文件中加入一行"b init_pcb"）。
@@ -14,7 +19,7 @@ Options:
     -q:     Test the image in QEMU of Loongson.
             (Make sure there has been a visual "disk" file under "~/QEMULoongson/".)
     -g:     Connect GDB with symbol-file under arch mips.
-            (The fucking annoying and useless version info will not be print.)
+            (The fucking annoying and useless version info will not be printed.)
     -b:     Load the image to the BOARD and run.(DEBUGGING)
             (NOT RECOMMANDED. Connections with both SDcard and BOARD are required.)
     -h:     Print this message.
