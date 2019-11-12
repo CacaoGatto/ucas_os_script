@@ -1,0 +1,3 @@
+set arch mips
+target remote localhost:50010
+
