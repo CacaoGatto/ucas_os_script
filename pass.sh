@@ -17,11 +17,13 @@ Options:
     -q:     Test the image in QEMU of Loongson.
             (Make sure there has been a visual \"disk\" file under \"~/QEMULoongson/\".)
     -g:     Connect GDB with symbol-file under arch mips.
-            (The fucking annoying and useless version info will not be print.)
-    -b:     Load the image to the BOARD and run.(DEBUGGING)
-            (NOT RECOMMANDED. Connections with both SDcard and BOARD are required.)
+            (The fucking annoying and useless version info will not be printed.)
+    -c:     Create \"pass.sh\" under \"~/\".
+            (Bash it directly. No need inputting \"sudo mount...\" after reconnection.)
+    -b:     Load the image to the SDcard.
+    -h:     Print this message.
 
-Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom check mails.XD
+Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom checks his mailbox.XD
 "
 workpath=$(cd $(dirname $0); pwd)
 remote="
@@ -29,6 +31,7 @@ remote="
 set -e
 
 echo $password | sudo -S mount -t vboxsf share /mnt/shared
+echo
 cd $workpath
 bash pass.sh \$1
 "
@@ -53,7 +56,7 @@ elif [ "$1" = "-g" ] ; then
     echo -e "$setting" > gdb_settings
     gdb-multiarch -x gdb_settings --symbols=main --quiet
     rm -f gdb_settings
-elif [ "$1" = "-s" ] ; then
+elif [ "$1" = "-c" ] ; then
     echo "$password" | sudo -S echo -e "$remote" > ~/pass.sh
     echo
 elif [ "$1" = "-h" ] ; then
