@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+password="123456"
+setting="
+set arch mips
+target remote localhost:50010
+"
+qemu_path=~/QEMULoongson
 usage="
 This is a script for UCAS's OS projects. USAGE:
 
@@ -17,8 +23,16 @@ Options:
 
 Report bugs to \"<cacaogattoxy@gmail.com>\", although the author seldom check mails.XD
 "
+workpath=$(cd $(dirname $0); pwd)
+remote="
+#!/bin/bash
+set -e
+
+echo $password | sudo -S mount -t vboxsf share /mnt/shared
+cd $workpath
+bash pass.sh \$1
+"
 guide="Use \`bash pass.sh -h' for a complete list of options."
-qemu_path=~/QEMULoongson
 
 if [ ! $# == 1 ] ; then
     echo -e "$usage"
@@ -27,19 +41,21 @@ fi
 if [ "$1" = "-q" ] ; then
     make clean
     make all
-    cp image ~/QEMULoongson
-    cd ~/QEMULoongson
+    cp image "$qemu_path"
+    cd "$qemu_path"
     dd if=image of=disk conv=notrunc
     sh run_pmon.sh
 elif [ "$1" = "-b" ] ; then
     make clean
     make all
     make floppy
-    sudo minicom
 elif [ "$1" = "-g" ] ; then
-    echo -e "set arch mips\ntarget remote localhost:50010\n\n" > gdb_settings
+    echo -e "$setting" > gdb_settings
     gdb-multiarch -x gdb_settings --symbols=main --quiet
     rm -f gdb_settings
+elif [ "$1" = "-s" ] ; then
+    echo "$password" | sudo -S echo -e "$remote" > ~/pass.sh
+    echo
 elif [ "$1" = "-h" ] ; then
     echo -e "$usage"
 else
