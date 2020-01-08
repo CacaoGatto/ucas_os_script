@@ -20,6 +20,13 @@ Options:
             (The fucking annoying and useless version info will not be printed.)
     -c:     Create \"pass.sh\" under \"~/\".
             (Bash it with the same usage. No need inputting \"sudo mount...\" after reconnection.)
+        -n:     Connect net bridge tap0.
+            (Bash it before using parameter \"-q\" in P5)
+    -s:     Execute pktRxTx with parameter \"-m -2\" to send packages.
+            (Bash with parameter \"-n\" first)
+    -r:     Call tcpdump to check package recieving in tap0.
+            (Bash with parameter \"-n\" first)
+    -l:     Copy \"gzram\" file to qemu's bios directory.
     -f:     Make clean, make all and make floppy.
     -h:     Print this message.
 
@@ -41,7 +48,7 @@ if [ ! $# == 1 ] ; then
     echo -e "$usage"
     exit
 fi
-while getopts "qgcfh" opt; do
+while getopts "qgcnsrlfh" opt; do
     case $opt in
         q)
           make clean
@@ -61,6 +68,22 @@ while getopts "qgcfh" opt; do
           echo "$password" | sudo -S echo -e "$remote" > ~/pass.sh
           echo
           echo "[NOTE] If it is the first time you use this script, make sure the password and qemu_path has been set correctly."
+          ;;
+        n)
+          echo "$password" | sudo -S brctl addbr br0
+          echo "$password" | sudo -S tunctl -t tap0 -u stu
+          echo "$password" | sudo -S brctl addif br0 tap0
+          echo "$password" | sudo -S ifconfig tap0 up
+          ;;
+        s)
+          cd ../pktRxTx/
+          sudo ./pktRxTx -m 2
+          ;;
+        r)
+          echo "$password" | sudo -S tcpdump -i tap0 -n -xx
+          ;;
+        l)
+          cp gzram "$qemu_path/bios"
           ;;
         f)
           make clean
